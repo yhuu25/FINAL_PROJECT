@@ -16,17 +16,17 @@ header {
   justify-content: space-between;
   align-items: center;
   background: #bdd4bc;
-  padding: 20px 50px;
-    box-shadow: 0 4px 8px lightgrey;
+  padding: 20px 30px;
+  box-shadow: 0 4px 8px lightgrey;
+  height: 60px;
+  overflow: hidden; 
 }
 
-.logo {
-  font-weight: bold;
-  font-size: 28px;
-  color: #000000;
-  letter-spacing: 1px;
-  font-family: 'Playfair Display', serif;
+.logo img {
+  max-height: 100px;
+  cursor: pointer;
 }
+
 
 nav ul {
   list-style: none;
@@ -47,6 +47,7 @@ nav a:hover,
 nav a.active {
   color: #ffffff;
 }
+
 
 main {
   flex: 1;
@@ -98,29 +99,30 @@ footer p {
   border: none;
 }
 
-.video-card p {
-  margin-top: 15px;
-  font-size: 18px;
-  color: #ccc;
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
+  margin: 50px auto;
+  max-width: 1000px;
 }
+
+.image-card {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.image-card img {
+  width: 100%;
+}
+
 .mission {
   margin: 50px auto;
   max-width: 800px;
 }
 
-.mission p {
-  font-size: 20px;
-  color: black;
-}
-
 .team {
   margin: 50px auto;
   max-width: 1000px;
-}
-
-.team h2 {
-  font-size: 32px;
-  margin-bottom: 40px;
 }
 
 .team-grid {
@@ -135,30 +137,15 @@ footer p {
   border-radius: 8px;
 }
 
-.team-member h3 {
-  margin: 10px 0 5px;
-  font-size: 20px;
-}
-
 .team-member p {
   margin: 0;
   color: #aaa;
 }
+
 .contact {
   margin: 60px auto;
   max-width: 700px;
   text-align: left;
-}
-
-.contact h2 {
-  font-size: 32px;
-  margin-bottom: 20px;
-}
-
-.contact p {
-  font-size: 20px;
-  margin-bottom: 30px;
-  color: #ccc;
 }
 
 .contact-form input,
