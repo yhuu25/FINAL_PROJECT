@@ -1,6 +1,5 @@
 body {
   margin: 0;
-  padding: 0;
   background: #F7F9F9;
   color: #000000;
   font-family: 'Roboto', sans-serif;
@@ -9,6 +8,8 @@ body {
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
+  background-image: url('background1.jpg');
+  background-size: 120%;
 }
 
 header {
@@ -17,16 +18,20 @@ header {
   align-items: center;
   background: #bdd4bc;
   padding: 20px 30px;
-  box-shadow: 0 4px 8px lightgrey;
+  box-shadow: 0 9px 8px lightgrey;
   height: 60px;
   overflow: hidden; 
 }
 
 .logo img {
-  max-height: 100px;
+  max-height: 95px;
   cursor: pointer;
+  transition: transform 0.3s ease;
 }
 
+.logo img:hover {
+  transform: scale(0.8);
+}
 
 nav ul {
   list-style: none;
@@ -41,11 +46,13 @@ nav a {
   text-decoration: none;
   transition: color 0.3s;
   font-weight: bold;
+  font-size: 18px;
 }
 
 nav a:hover,
 nav a.active {
   color: #ffffff;
+  border-bottom: 2px solid #ffffff;
 }
 
 
@@ -97,6 +104,12 @@ footer p {
   width: 100%;
   height: 200px;
   border: none;
+  transition: transform 0.3s ease;
+  cursor: pointer
+}
+
+.video-card iframe:hover {
+  transform: scale(1.1);
 }
 
 .image-grid {
@@ -113,8 +126,13 @@ footer p {
 
 .image-card img {
   width: 100%;
+  transition: transform 0.3s ease;
+  cursor: pointer;
 }
 
+.image-card img:hover {
+  transform: scale(1.1);
+}
 .mission {
   margin: 50px auto;
   max-width: 800px;
@@ -161,16 +179,19 @@ footer p {
 }
 
 .contact-form button {
-  background: transparent;
-  border: 2px solid #bdd4bc;
-  color: #bdd4bc;
+  background-color: #bdd4bc;
+  border: none;
+  color: #ffffff;
   padding: 12px 30px;
   font-size: 18px;
   cursor: pointer;
-
+  transition: transform 0.3s ease;
 }
 
 .contact-form button:hover {
-  background: #bdd4bc;
-  color: #ffffff;
+  transform: scale(1.1);
+  background-color: #ffffff;
+  color: #bdd4bc;
+  border: 1px solid #bdd4bc;
 }
+
