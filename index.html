@@ -9,7 +9,7 @@
 </head>
 <body>
   <header>
-  <div class="logo">
+  <div class="logo"> <!-- LOGO -->
     <img src="LOGO.png">
   </div>
 
@@ -26,9 +26,56 @@
   <main> <!-- Main Contents -->
     <h1> ~ WALL OF THOUGHTS ~ </h1>
     <p class="description">A safe space to confront what lurks within. Not every thought is kind — and that’s okay. (NOT DONE)</p>
+    
+<!-- Add button -->
+<div class="add-container">
+  <button id="addBtn" class="add-btn">Face your Thoughts</button>
+</div>
+
+<!-- Modal (write your thoughts) -->
+<div id="noteModal" class="modal">
+  <div class="modal-box">
+    <button class="close">X</button>
+    <textarea id="rantInput" placeholder="Write your thought..."></textarea>
+    <button id="submitNote">Submit Thought</button>
+  </div>
+</div>
+
+<!-- Sticky Note -->
+<section id="stickyWall" class="sticky-wall">
+</section>
+
+<script> //JavaScript
+  const modal = document.getElementById("noteModal");
+  const addBtn = document.getElementById("addBtn");
+  const close = modal.querySelector(".close");
+  const submit = document.getElementById("submitNote");
+  const input = document.getElementById("rantInput");
+  const wall = document.getElementById("stickyWall");
+
+  addBtn.onclick = () => modal.style.display = "flex";
+  close.onclick = () => { modal.style.display = "none"; input.value = ""; };
+
+  submit.onclick = () => {
+    if (!input.value.trim()) return;
+    const note = document.createElement("div");
+    note.className = "sticky-note";
+    note.innerText = input.value;
+    wall.appendChild(note);
+    modal.style.display = "none";
+    input.value = "";
+  };
+
+  window.onclick = (e) => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+      input.value = "";
+    }
+  };
+</script>
   </main>
 
-  <footer>
+  <footer> <!-- Footer -->
     <p>2025 Wall of Thoughts. You are not alone.</p>
   </footer>
 </body>
