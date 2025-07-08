@@ -46,31 +46,23 @@
 </section>
 
 <script> //JavaScript
-  const modal = document.getElementById("noteModal");
-  const addBtn = document.getElementById("addBtn");
-  const close = modal.querySelector(".close");
-  const submit = document.getElementById("submitNote");
-  const input = document.getElementById("rantInput");
-  const wall = document.getElementById("stickyWall");
+  const modal = noteModal,
+        input = rantInput,
+        wall = stickyWall,
+        close = modal.querySelector(".close");
 
   addBtn.onclick = () => modal.style.display = "flex";
-  close.onclick = () => { modal.style.display = "none"; input.value = ""; };
+  close.onclick = () => modal.style.display = "none", input.value = "";
 
-  submit.onclick = () => {
+  submitNote.onclick = () => {
     if (!input.value.trim()) return;
-    const note = document.createElement("div");
-    note.className = "sticky-note";
-    note.innerText = input.value;
-    wall.appendChild(note);
-    modal.style.display = "none";
+    wall.innerHTML += `<div class="sticky-note">${input.value}</div>`;
     input.value = "";
+    modal.style.display = "none";
   };
 
-  window.onclick = (e) => {
-    if (e.target === modal) {
-      modal.style.display = "none";
-      input.value = "";
-    }
+  window.onclick = e => {
+    if (e.target === modal) modal.style.display = "none", input.value = "";
   };
 </script>
   </main>

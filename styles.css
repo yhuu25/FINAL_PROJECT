@@ -10,8 +10,8 @@ body {
   flex-direction: column;
   background-image: url('background1.jpg');
   background-size: 120%;
-  
 }
+
 /* Navigation bar + Logo */ 
 header {
   display: flex;
