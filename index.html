@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Wall of Thoughts</title>
   <link rel="stylesheet" href="styles.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 </head>
 <body>
   <header> 
@@ -15,7 +16,7 @@
   <nav> 
     <ul>
       <li><a href="index.html" class="active">HOME</a></li>
-      <li><a href="quotes.html" >QUOTES</a></li>
+      <li><a href="products.html">PRODUCTS</a></li>
       <li><a href="video-guidelines.html">VIDEO GUIDES</a></li>
       <li><a href="about-us.html">ABOUT US</a></li>
     </ul>
@@ -46,21 +47,66 @@
 
 <script> //JavaScript
   const modal = noteModal,
-        input = rantInput,             //conects it to the html elements
-        wall = stickyWall,
-        close = modal.querySelector(".close");
+      input = rantInput,
+      wall = stickyWall,
+      close = modal.querySelector(".close");
 
-  addBtn.onclick = () => modal.style.display = "flex";
-  close.onclick = () => modal.style.display = "none";      //hides the popup (closing)
-  submitNote.onclick = () => {
+addBtn.onclick = () => {
+  modal.style.display = "flex";
+};
 
-    if (!input.value.trim()) return; //check if its empty
-    wall.innerHTML += `<div class="sticky-note">${input.value}</div>`; // it adds the sticky note to the wall
-    input.value = ""; //clears the textbox after adding
-    modal.style.display = "none"; //hides popup again
-  };
+close.onclick = () => {
+  modal.style.display = "none";
+};
+
+submitNote.onclick = () => {
+  if (!input.value.trim()) return;
+
+  // Create note element with delete button
+  const note = document.createElement("div");
+  note.className = "sticky-note";
+  note.innerHTML = `
+    <span class="delete-note">❌</span>
+    <p>${input.value}</p>
+  `;
+
+  // Append note to wall
+  wall.appendChild(note);
+  input.value = "";
+  modal.style.display = "none";
+};
+
+// Delete note when ❌ is clicked
+wall.addEventListener("click", function (e) {
+  if (e.target.classList.contains("delete-note")) {
+    e.target.parentElement.remove();
+  }
+});
 
 </script>
+<h1> ~ Quotes and Motivations ~ </h1>
+<p class="description">Words to guide you through your thoughts and emotions.</p>
+
+  <div class="image-grid">
+    <div class="image-card">
+      <img src="https://hips.hearstapps.com/hmg-prod/images/mental-health-quotes-noam-shpancer-1651243006.jpg?resize=980:*">
+    </div>
+    <div class="image-card">
+      <img src="https://hips.hearstapps.com/hmg-prod/images/mental-health-quotes-john-green-1651243007.jpg?resize=980:*">
+    </div>
+    <div class="image-card">
+      <img src="https://hips.hearstapps.com/hmg-prod/images/mental-health-quotes-matt-haig-1651243010.jpg?resize=980:*">
+    </div>
+    <div class="image-card">
+      <img src="https://hips.hearstapps.com/hmg-prod/images/mental-health-quotes-molly-bahr-1651243009.jpg?resize=980:*">
+    </div>
+    <div class="image-card">
+      <img src="https://cdn.shopify.com/s/files/1/0856/0240/2611/files/quotes-about-mental-health-struggles.jpg?v=1715508460">
+    </div>
+    <div class="image-card">
+      <img src="https://mentalhealthmatch.com/articles/wp-content/uploads/2024/09/Quotes-to-help-guide-your-mental-health-journey-1.png">
+    </div>
+  </div>
   </main>
 
   <footer> <!-- Footer -->

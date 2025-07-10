@@ -39,16 +39,32 @@ nav ul {
 }
 
 nav a {
+  position: relative;
   color: #000000;
   text-decoration: none;
   font-weight: bold;
   font-size: 18px;
+  padding-bottom: 5px;
 }
 
-nav a:hover,
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: #ffffff;
+  transition: width 0.6s ease;
+}
+
+nav a:hover::after,
+nav a.active::after {
+  width: 100%;
+}
+
 nav a.active {
-  color: #ffffff;
-  border-bottom: 2px solid #ffffff; /*thickness-style-color */
+  color: white;
 }
 
 /* main contents */ 
@@ -57,14 +73,16 @@ main {
 }
 
 h1 {
-  font-family: serif;
   font-size: 62px;
+  text-shadow: 0 0 8px rgba(74, 120, 86, 0.4);
+  font-family: 'Poppins', sans-serif;
 }
 
 .description {
   font-size: 22px;
   width: 700px;
   margin: auto;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 /* footer */ 
@@ -78,6 +96,215 @@ footer {
 
 footer p {
   margin: 0;
+}
+
+/* Add button (home page) */ 
+.add-container {
+  margin: 30px;
+}
+
+.add-btn {
+  background-color: #bdd4bc;
+  border: none;
+  color: #ffffff;
+  padding: 12px 30px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: transform 0.3s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.add-btn:hover {
+  transform: scale(1.1);
+  background-color: #ffffff;
+  color: #bdd4bc;
+  border: 1px solid #bdd4bc;
+}
+
+/* Modal (home page) */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #00000080;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-box {
+  background: #bdd4bc;
+  padding: 20px;
+  width: 500px;
+}
+
+.modal-box textarea {
+  width: 100%;
+  height: 100px;
+  margin: 10px auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);  
+}
+
+.modal-box button {
+  padding: 8px 20px;
+  background: white;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.modal-box button:hover {
+  transform: scale(1.1);
+}
+
+.close {
+  border: none;
+  float: right;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s;
+}
+
+.close:hover {
+  background: red;
+  transform: scale(1.1);
+}
+
+/* Sticky Notes */
+.sticky-wall {
+  display: flex;
+  gap: 20px;
+  padding: 30px;
+}
+
+.sticky-note {
+  width: 200px;
+  min-height: 150px;
+  background-color: #f3fac5;
+  box-shadow: 2px 2px 6px lightgrey;
+  padding: 15px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.sticky-note:hover {
+  transform: scale(1.1);
+}
+
+.delete-note {
+  float: right;
+  cursor: pointer;
+  font-weight: bold;
+  color: red;
+  margin-bottom: 5px;
+}
+
+.sticky-note p {
+  margin: 0;
+}
+
+/* Quotes and motivations Page */ 
+.image-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin: 50px auto;
+  width: 1000px;
+}
+
+.image-card {
+  box-shadow: 0 4px 10px lightgrey;
+}
+
+.image-card img {
+  width: 100%;
+  transition: transform 0.3s;
+  cursor: pointer;
+}
+
+.image-card img:hover {
+  transform: scale(1.1);
+}
+
+/*products page */
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 30px;
+  max-width: 1000px;
+  margin: 30px auto;
+}
+
+/*Each Product Card*/
+.product {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+  
+}
+
+.product:hover {
+  transform: scale(1.2);
+}
+
+.product img {
+  width: 100%;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.product h3 {
+  margin: 10px 0 5px;
+  font-size: 20px;
+  color: #4a7856;
+}
+
+.categories {
+  text-align: right;
+  width: 415px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/*Add to Cart Button*/
+.product button {
+  margin-top: 10px;
+  background-color: #bdd4bc;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.product button:hover {
+  background-color: #9bb49e;
+  
+}
+
+.cart-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+.cart-button img {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  transition: transform 0.3s;
+  box-shadow: 0 4px 8px black;
+}
+
+.cart-button img:hover {
+  transform: scale(1.1);
 }
 
 /* Video-Guides Page */ 
@@ -107,29 +334,6 @@ footer p {
   transform: scale(1.1);
 }
 
-/* Quotes Page */ 
-.image-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  margin: 50px auto;
-  width: 1000px;
-}
-
-.image-card {
-  box-shadow: 0 4px 10px lightgrey;
-}
-
-.image-card img {
-  width: 100%;
-  transition: transform 0.3s;
-  cursor: pointer;
-}
-
-.image-card img:hover {
-  transform: scale(1.1);
-}
-
 /* About Us Page */ 
 .mission {
   margin: auto;
@@ -146,12 +350,14 @@ footer p {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 40px;
+  
 }
 
 .team-member {
   background: white;
   padding: 20px;
   border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .team-member p {
@@ -184,6 +390,7 @@ footer p {
   font-size: 18px;
   cursor: pointer;
   transition: transform 0.3s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);  
 }
 
 .contact-form button:hover {
@@ -191,94 +398,4 @@ footer p {
   background-color: #ffffff;
   color: #bdd4bc;
   border: 1px solid #bdd4bc;
-}
-
-/* Add button (home page) */ 
-.add-container {
-  margin: 30px;
-}
-
-.add-btn {
-  background-color: #bdd4bc;
-  border: none;
-  color: #ffffff;
-  padding: 12px 30px;
-  font-size: 18px;
-  cursor: pointer;
-  transition: transform 0.3s;
-}
-
-.add-btn:hover {
-  transform: scale(1.1);
-  background-color: #ffffff;
-  color: #bdd4bc;
-  border: 1px solid #bdd4bc;
-}
-
-/* Modal (home page) */
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: #00000080;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-box {
-  background: #bdd4bc;
-  padding: 20px;
-  width: 500px;
-}
-
-.modal-box textarea {
-  width: 100%;
-  height: 100px;
-  margin: 10px auto;
-}
-
-.modal-box button {
-  padding: 8px 20px;
-  background: white;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-  transition: transform 0.3s;
-}
-
-.modal-box button:hover {
-  transform: scale(1.1);
-}
-
-.close {
-  border: none;
-  float: right;
-  cursor: pointer;
-  transition: transform 0.3s;
-}
-
-.close:hover {
-  background: red;
-  transform: scale(1.1);
-}
-
-/* Sticky Notes */
-.sticky-wall {
-  display: flex;
-  gap: 20px;
-  padding: 30px;
-}
-
-.sticky-note {
-  width: 200px;
-  min-height: 150px;
-  background-color: #f3fac5;
-  box-shadow: 2px 2px 6px lightgrey;
-  padding: 15px;
-  cursor: pointer;
-  transition: transform 0.3s;
-}
-
-.sticky-note:hover {
-  transform: scale(1.1);
 }
