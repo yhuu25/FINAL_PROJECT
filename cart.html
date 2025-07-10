@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Cart</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo"><img src="LOGO.png"></a>
+    <nav>
+      <ul>
+        <li><a href="index.html">HOME</a></li>
+        <li><a href="products.html">PRODUCTS</a></li>
+        <li><a href="video-guidelines.html">VIDEO GUIDES</a></li>
+        <li><a href="about-us.html">ABOUT US</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Your Cart</h1>
+    <table id="cart-table" border="1" style="margin: auto; background: white; border-collapse: collapse;">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Price (₱)</th>
+          <th>Quantity</th>
+          <th>Total</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <h2 id="grand-total" style="margin-top: 20px;">Grand Total: ₱0</h2>
+  </main>
+
+  <script>
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const tbody = document.querySelector("#cart-table tbody");
+    const grandTotal = document.getElementById("grand-total");
+
+    function updateCartDisplay() {
+      tbody.innerHTML = "";
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+          <td>${item.name}</td>
+          <td>₱${item.price}</td>
+          <td>
+            <input type="number" value="${item.quantity}" min="1" data-index="${index}" class="qty-input">
+          </td>
+          <td>₱${(item.price * item.quantity).toFixed(2)}</td>
+          <td><button data-index="${index}" class="remove-btn">❌</button></td>
+        `;
+
+        tbody.appendChild(row);
+        total += item.price * item.quantity;
+      });
+
+      grandTotal.textContent = `Grand Total: ₱${total.toFixed(2)}`;
+    }
+
+    // Handle quantity change
+    tbody.addEventListener("input", e => {
+      if (e.target.classList.contains("qty-input")) {
+        const index = e.target.dataset.index;
+        const newQty = parseInt(e.target.value);
+        if (newQty > 0) {
+          cart[index].quantity = newQty;
+          localStorage.setItem("cart", JSON.stringify(cart));
+          updateCartDisplay();
+        }
+      }
+    });
+
+    // Handle remove
+    tbody.addEventListener("click", e => {
+      if (e.target.classList.contains("remove-btn")) {
+        const index = e.target.dataset.index;
+        cart.splice(index, 1);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateCartDisplay();
+      }
+    });
+
+    updateCartDisplay();
+  </script>
+
+  <footer>
+    <p>2025 Wall of Thoughts. You are not alone.</p>
+  </footer>
+</body>
+</html>

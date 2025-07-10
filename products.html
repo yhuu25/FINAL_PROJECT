@@ -3,98 +3,292 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Quotes</title>
+  <title>Products – Calm Corner</title>
   <link rel="stylesheet" href="styles.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    .cart-count {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: red;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 50%;
+      padding: 2px 6px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 100px;
+      right: 20px;
+      background: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 9999;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+
+    .checkout-form {
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .checkout-form h4 {
+      margin-bottom: 10px;
+    }
+
+    .checkout-form input,
+    .checkout-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .checkout-form button {
+      margin-top: 10px;
+      width: 100%;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .checkout-form button:hover {
+      background-color: #45a049;
+    }
+  </style>
 </head>
 <body>
-    <header> 
-  <a href="index.html" class="logo"> <!-- LOGO -->
-    <img src="LOGO.png">
-  </a>
-
-<nav>
-    <ul> <!-- Unordered list -->
-<!-- list item --> 
-      <li><a href="index.html">HOME</a></li> 
-      <li><a href="products.html" class="active">PRODUCTS</a></li> 
-      <li><a href="video-guidelines.html">VIDEO GUIDES</a></li> 
-      <li><a href="about-us.html">ABOUT US</a></li> 
-    </ul>
-  </nav>
+  <header> 
+    <a href="index.html" class="logo">
+      <img src="LOGO.png" alt="Logo">
+    </a>
+    <nav>
+      <ul>
+        <li><a href="index.html">HOME</a></li> 
+        <li><a href="products.html" class="active">PRODUCTS</a></li> 
+        <li><a href="video-guidelines.html">VIDEO GUIDES</a></li> 
+        <li><a href="about-us.html">ABOUT US</a></li> 
+      </ul>
+    </nav>
   </header>
-<main>
-  <a href="cart.html" class="cart-button">
-    <img src="cart-logo.jpg">
-  </a>
-  <h1>~ Calm Corner ~</h1>
-  <p class="description">Explore our relaxing self-care tools</p>
-  <p class="categories">Stress Reliever Toys</p>
-    <!-- Repeat product cards -->
+
+  <main>
+    <a href="#" class="cart-button" id="cartBtn">
+      <img src="cart-logo.jpg" alt="Cart">
+      <span class="cart-count" id="cartCount">0</span>
+    </a>
+
+    <div class="toast" id="toast">Item added to cart!</div>
+
+    <h1>~ Calm Corner ~</h1>
+    <p class="description">Explore our relaxing self-care tools</p>
+    <p class="categories">Stress Reliever Toys</p>
+
     <div class="product-grid">
-  <div class="product">
-    <img src="squishy.jpg">
-    <h3>Squishy Toy</h3>
-    <p>₱99</p>
-    <button>Add to Cart</button>
-  </div>
+      <div class="product">
+        <img src="squishy.jpg">
+        <h3>Squishy Toy</h3>
+        <p>₱99</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="stressball.jpg">
+        <h3>Stress Ball</h3>
+        <p>₱120</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="sample">
+        <h3>Sample</h3>
+        <p>₱150</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="sample">
+        <h3>Sample</h3>
+        <p>₱180</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+    </div>
 
-  <!-- Product 2 -->
-  <div class="product">
-    <img src="stressball.jpg">
-    <h3>Stress Ball</h3>
-    <p>₱120</p>
-    <button>Add to Cart</button>
-  </div>
+    <p class="categories">Aromatherapy Items</p>
+    <div class="product-grid">
+      <div class="product">
+        <img src="sample">
+        <h3>Sample</h3>
+        <p>₱199</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="sample">
+        <h3>Sample</h3>
+        <p>₱599</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="sample">
+        <h3>Sample</h3>
+        <p>₱150</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+    </div>
+  </main>
 
-  <!-- Product 3 -->
-  <div class="product">
-    <img src="sample">
-    <h3>sample</h3>
-    <p>₱150</p>
-    <button>Add to Cart</button>
-  </div>
-
-  <!-- Product 4 -->
-  <div class="product">
-    <img src="sample">
-    <h3>sample</h3>
-    <p>₱180</p>
-    <button>Add to Cart</button>
-  </div>
-</div>
-<p class="categories">Aromatherapy items</p>
-<div class="product-grid">
-  <!-- Aromatherapy Product 1 -->
-  <div class="product">
-    <img src="sample">
-    <h3>sample</h3>
-    <p>₱199</p>
-    <button>Add to Cart</button>
-  </div>
-
-  <!-- Aromatherapy Product 2 -->
-  <div class="product">
-    <img src="sample">
-    <h3>sample</h3>
-    <p>₱599</p>
-    <button>Add to Cart</button>
-  </div>
-
-  <!-- Aromatherapy Product 3 -->
-  <div class="product">
-    <img src="sample">
-    <h3>sample</h3>
-    <p>₱150</p>
-    <button>Add to Cart</button>
-  </div>
-</div>
-<!-- Product 4 -->
-  
-</main>
-
-  <footer> <!-- Footer -->
+  <footer>
     <p>2025 Wall of Thoughts. You are not alone.</p>
   </footer>
+
+  <!-- Slide-out Cart Panel -->
+  <div id="cartPanel" class="cart-panel">
+    <div class="cart-header">
+      <h3>Your Cart</h3>
+      <button id="closeCart">X</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <!-- Items will be rendered here -->
+    </div>
+    <p id="cartTotal" style="font-weight: bold; margin-top: 10px;"></p>
+
+    <form id="checkoutForm" class="checkout-form">
+      <h4>Checkout Info</h4>
+      <input type="text" id="customerName" placeholder="Your Name" required>
+      <input type="text" id="contactNumber" placeholder="Contact Number" required>
+      <textarea id="address" placeholder="Delivery Address" required></textarea>
+      <button type="submit">Submit Order</button>
+    </form>
+  </div>
+
+  <!-- JavaScript Logic -->
+  <script>
+    const cartBtn = document.getElementById("cartBtn");
+    const cartPanel = document.getElementById("cartPanel");
+    const closeCart = document.getElementById("closeCart");
+    const cartItemsContainer = document.getElementById("cartItems");
+    const cartCountEl = document.getElementById("cartCount");
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    function updateCartCount() {
+      const count = cart.reduce((total, item) => total + item.quantity, 0);
+      cartCountEl.textContent = count;
+    }
+
+    function renderCart() {
+      cartItemsContainer.innerHTML = "";
+      if (cart.length === 0) {
+        cartItemsContainer.innerHTML = "<p>Your cart is empty.</p>";
+        document.getElementById("cartTotal").textContent = "";
+        return;
+      }
+
+      cart.forEach((item, index) => {
+        const div = document.createElement("div");
+        div.classList.add("cart-item");
+        div.innerHTML = `
+          <strong>${item.name}</strong><br>
+          ₱${item.price} x 
+          <input type="number" min="1" value="${item.quantity}" data-index="${index}" class="quantity">
+          = ₱${item.price * item.quantity}
+          <button class="remove-item" data-index="${index}">🗑</button>
+        `;
+        cartItemsContainer.appendChild(div);
+      });
+
+      const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      document.getElementById("cartTotal").textContent = `Total: ₱${total.toFixed(2)}`;
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 1500);
+    }
+
+    cartBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      renderCart();
+      cartPanel.style.right = "0";
+    });
+
+    closeCart.addEventListener("click", () => {
+      cartPanel.style.right = "-400px";
+    });
+
+    document.querySelectorAll(".product button").forEach(button => {
+      button.addEventListener("click", () => {
+        const card = button.closest(".product");
+        const name = card.querySelector("h3").innerText;
+        const price = parseFloat(card.querySelector("p").innerText.replace("₱", ""));
+        const existing = cart.find(i => i.name === name);
+        if (existing) {
+          existing.quantity++;
+        } else {
+          cart.push({ name, price, quantity: 1 });
+        }
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateCartCount();
+        renderCart();
+        showToast(`${name} added to cart!`);
+      });
+    });
+
+    cartItemsContainer.addEventListener("input", (e) => {
+      if (e.target.classList.contains("quantity")) {
+        const index = e.target.dataset.index;
+        cart[index].quantity = parseInt(e.target.value);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateCartCount();
+        renderCart();
+      }
+    });
+
+    cartItemsContainer.addEventListener("click", (e) => {
+      if (e.target.classList.contains("remove-item")) {
+        const index = e.target.dataset.index;
+        cart.splice(index, 1);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateCartCount();
+        renderCart();
+      }
+    });
+
+    document.getElementById("checkoutForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const name = document.getElementById("customerName").value.trim();
+      const contact = document.getElementById("contactNumber").value.trim();
+      const address = document.getElementById("address").value.trim();
+
+      if (!name || !contact || !address) {
+        alert("Please fill out all fields.");
+        return;
+      }
+
+      alert(`Thank you, ${name}! Your order has been placed.`);
+      cart = [];
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartCount();
+      renderCart();
+      this.reset();
+    });
+
+    updateCartCount();
+  </script>
 </body>
 </html>
