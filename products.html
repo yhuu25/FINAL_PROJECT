@@ -203,23 +203,31 @@
   });
 
   document.querySelectorAll(".product button").forEach(button => {
-    button.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const card = button.closest(".product");
-      const name = card.querySelector("h3").innerText;
-      const price = parseFloat(card.querySelector("p").innerText.replace("₱", ""));
-      const existing = cart.find(i => i.name === name);
-      if (existing) {
-        existing.quantity++;
-      } else {
-        cart.push({ name, price, quantity: 1 });
-      }
-      localStorage.setItem("cart", JSON.stringify(cart));
-      updateCartCount();
-      renderCart();
-      showToast(`${name} added to cart!`);
-    });
+  button.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const card = button.closest(".product");
+    let name = card.querySelector("h3").innerText;
+    const price = parseFloat(card.querySelector("p").innerText.replace("₱", ""));
+    const colors = card.dataset.colors ? card.dataset.colors.split(",") : [];
+
+    // If the product has color options and user used the direct Add to Cart (not modal), assume random color
+    if (colors.length > 0) {
+      name += " (Random Color)";
+    }
+
+    const existing = cart.find(i => i.name === name);
+    if (existing) {
+      existing.quantity++;
+    } else {
+      cart.push({ name, price, quantity: 1 });
+    }
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartCount();
+    renderCart();
+    showToast(`${name} added to cart!`);
   });
+});
+
 
   cartItemsContainer.addEventListener("input", (e) => {
     if (e.target.classList.contains("quantity")) {
