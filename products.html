@@ -6,72 +6,6 @@
   <title>Products – Calm Corner</title>
   <link rel="stylesheet" href="styles.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-  <style>
-    .cart-count {
-      position: absolute;
-      top: -5px;
-      right: -5px;
-      background: red;
-      color: white;
-      font-size: 14px;
-      font-weight: bold;
-      border-radius: 50%;
-      padding: 2px 6px;
-    }
-
-    .toast {
-      position: fixed;
-      bottom: 100px;
-      right: 20px;
-      background: #4CAF50;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 8px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      z-index: 9999;
-    }
-
-    .toast.show {
-      opacity: 1;
-    }
-
-    .checkout-form {
-      margin-top: 20px;
-      text-align: left;
-    }
-
-    .checkout-form h4 {
-      margin-bottom: 10px;
-    }
-
-    .checkout-form input,
-    .checkout-form textarea {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      font-size: 14px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-
-    .checkout-form button {
-      margin-top: 10px;
-      width: 100%;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      padding: 10px;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-
-    .checkout-form button:hover {
-      background-color: #45a049;
-    }
-  </style>
 </head>
 <body>
   <header> 
@@ -98,53 +32,47 @@
 
     <h1>~ Calm Corner ~</h1>
     <p class="description">Explore our relaxing self-care tools</p>
-    <p class="categories">Stress Reliever Toys</p>
+    <p class="categories">Stress Reliever Products</p>
 
     <div class="product-grid">
-      <div class="product">
-        <img src="squishy.jpg">
-        <h3>Squishy Toy</h3>
+      <div class="product" data-description="A soft, squeezable ball that helps relieve stress and anxiety by keeping your hands busy and your mind calm.">
+        <img src="squish-balls.jpg">
+        <h3>Squishy Ball</h3>
         <p>₱99</p>
         <button class="add-to-cart">Add to Cart</button>
       </div>
-      <div class="product">
-        <img src="stressball.jpg">
-        <h3>Stress Ball</h3>
-        <p>₱120</p>
+      <div class="product" data-description="A compact cube with buttons, switches, and rollers designed to reduce stress and enhance focus through tactile interaction.">
+        <img src="fidget-cube.jpg">
+        <h3>Fidget Cube</h3>
+        <p>₱119</p>
         <button class="add-to-cart">Add to Cart</button>
       </div>
-      <div class="product">
-        <img src="sample">
-        <h3>Sample</h3>
-        <p>₱150</p>
-        <button class="add-to-cart">Add to Cart</button>
-      </div>
-      <div class="product">
-        <img src="sample">
-        <h3>Sample</h3>
-        <p>₱180</p>
+      <div class="product" data-description="A simple yet meaningful bracelet that serves as a gentle reminder to pause, breathe, and stay present throughout your day.">
+        <img src="bracelet.jpg">
+        <h3>Mindfulness Bracelet</h3>
+        <p>₱49</p>
         <button class="add-to-cart">Add to Cart</button>
       </div>
     </div>
 
     <p class="categories">Aromatherapy Items</p>
     <div class="product-grid">
-      <div class="product">
-        <img src="sample">
-        <h3>Sample</h3>
+      <div class="product" data-description="A soothing bath bomb infused with essential oils that fizz and release calming scents, perfect for a relaxing soak.">
+        <img src="bath-bomb.jpg">
+        <h3>Bath Bomb</h3>
         <p>₱199</p>
         <button class="add-to-cart">Add to Cart</button>
       </div>
-      <div class="product">
-        <img src="sample">
-        <h3>Sample</h3>
-        <p>₱599</p>
+      <div class="product" data-description="An invigorating green mint essential oil that promotes mental clarity and helps ease feelings of fatigue and tension.">
+        <img src="green-mint.jpg">
+        <h3>Green Mint Oil</h3>
+        <p>₱499</p>
         <button class="add-to-cart">Add to Cart</button>
       </div>
-      <div class="product">
-        <img src="sample">
-        <h3>Sample</h3>
-        <p>₱150</p>
+      <div class="product" data-description="A convenient nasal inhaler that delivers instant relief through a blend of calming scents, helping ease anxiety and nausea.">
+        <img src="inhaler.jpg">
+        <h3>Inhaler</h3>
+        <p>₱99</p>
         <button class="add-to-cart">Add to Cart</button>
       </div>
     </div>
@@ -160,9 +88,7 @@
       <h3>Your Cart</h3>
       <button id="closeCart">X</button>
     </div>
-    <div class="cart-items" id="cartItems">
-      <!-- Items will be rendered here -->
-    </div>
+    <div class="cart-items" id="cartItems"></div>
     <p id="cartTotal" style="font-weight: bold; margin-top: 10px;"></p>
 
     <form id="checkoutForm" class="checkout-form">
@@ -174,15 +100,35 @@
     </form>
   </div>
 
-  <!-- JavaScript Logic -->
+  <!-- Product Modal -->
+  <div class="product-modal" id="productModal">
+    <div class="product-modal-content">
+      <span class="close-modal" id="closeModal">X</span>
+      <img id="modalImage" src="" alt="Product Image">
+      <h3 id="modalName"></h3>
+      <p id="modalPrice"></p>
+      <p id="modalDescription"></p>
+      <button id="modalAddToCart">Add to Cart</button>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
   <script>
     const cartBtn = document.getElementById("cartBtn");
     const cartPanel = document.getElementById("cartPanel");
     const closeCart = document.getElementById("closeCart");
     const cartItemsContainer = document.getElementById("cartItems");
     const cartCountEl = document.getElementById("cartCount");
+    const productModal = document.getElementById("productModal");
+    const modalImage = document.getElementById("modalImage");
+    const modalName = document.getElementById("modalName");
+    const modalPrice = document.getElementById("modalPrice");
+    const modalDescription = document.getElementById("modalDescription");
+    const modalAddToCart = document.getElementById("modalAddToCart");
+    const closeModal = document.getElementById("closeModal");
 
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let selectedProduct = {};
 
     function updateCartCount() {
       const count = cart.reduce((total, item) => total + item.quantity, 0);
@@ -232,7 +178,8 @@
     });
 
     document.querySelectorAll(".product button").forEach(button => {
-      button.addEventListener("click", () => {
+      button.addEventListener("click", (e) => {
+        e.stopPropagation(); // prevent modal opening when button clicked
         const card = button.closest(".product");
         const name = card.querySelector("h3").innerText;
         const price = parseFloat(card.querySelector("p").innerText.replace("₱", ""));
@@ -286,6 +233,43 @@
       updateCartCount();
       renderCart();
       this.reset();
+    });
+
+    // Modal logic
+    document.querySelectorAll(".product").forEach(card => {
+      card.addEventListener("click", () => {
+        const name = card.querySelector("h3").innerText;
+        const price = parseFloat(card.querySelector("p").innerText.replace("₱", ""));
+        const image = card.querySelector("img").getAttribute("src");
+        const description = card.dataset.description;
+
+        selectedProduct = { name, price };
+
+        modalImage.src = image;
+        modalName.textContent = name;
+        modalPrice.textContent = `₱${price}`;
+        modalDescription.textContent = description;
+        productModal.style.display = "flex";
+      });
+    });
+
+    closeModal.addEventListener("click", () => {
+      productModal.style.display = "none";
+    });
+
+    modalAddToCart.addEventListener("click", () => {
+      const existing = cart.find(i => i.name === selectedProduct.name);
+      if (existing) {
+        existing.quantity++;
+      } else {
+        cart.push({ ...selectedProduct, quantity: 1 });
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartCount();
+      renderCart();
+      showToast(`${selectedProduct.name} added to cart!`);
+      productModal.style.display = "none";
     });
 
     updateCartCount();

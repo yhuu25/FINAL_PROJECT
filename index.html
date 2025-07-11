@@ -45,44 +45,66 @@
 <section id="stickyWall" class="sticky-wall">
 </section>
 
-<script> //JavaScript
-  const modal = noteModal,
-      input = rantInput,
-      wall = stickyWall,
-      close = modal.querySelector(".close");
+<!-- Java Script -->
+<script>
+  const modal = document.getElementById("noteModal"),
+        input = document.getElementById("rantInput"),
+        wall = document.getElementById("stickyWall"),
+        close = modal.querySelector(".close"),
+        addBtn = document.getElementById("addBtn"),
+        submitNote = document.getElementById("submitNote");
 
-addBtn.onclick = () => {
-  modal.style.display = "flex";
-};
+  let notes = JSON.parse(localStorage.getItem("thoughtNotes")) || [];
 
-close.onclick = () => {
-  modal.style.display = "none";
-};
+  // Display modal
+  addBtn.onclick = () => {
+    modal.style.display = "flex";
+  };
 
-submitNote.onclick = () => {
-  if (!input.value.trim()) return;
+  // Close modal
+  close.onclick = () => {
+    modal.style.display = "none";
+  };
 
-  // Create note element with delete button
-  const note = document.createElement("div");
-  note.className = "sticky-note";
-  note.innerHTML = `
-    <span class="delete-note">❌</span>
-    <p>${input.value}</p>
-  `;
+  // Save and render new note
+  submitNote.onclick = () => {
+    const text = input.value.trim();
+    if (!text) return;
 
-  // Append note to wall
-  wall.appendChild(note);
-  input.value = "";
-  modal.style.display = "none";
-};
+    const noteObj = { id: Date.now(), content: text };
+    notes.push(noteObj);
+    localStorage.setItem("thoughtNotes", JSON.stringify(notes));
+    renderNote(noteObj);
 
-// Delete note when ❌ is clicked
-wall.addEventListener("click", function (e) {
-  if (e.target.classList.contains("delete-note")) {
-    e.target.parentElement.remove();
+    input.value = "";
+    modal.style.display = "none";
+  };
+
+  // Render a note to the wall
+  function renderNote(noteObj) {
+    const note = document.createElement("div");
+    note.className = "sticky-note";
+    note.dataset.id = noteObj.id;
+    note.innerHTML = `
+      <span class="delete-note">❌</span>
+      <p>${noteObj.content}</p>
+    `;
+    wall.appendChild(note);
   }
-});
 
+  // Delete note
+  wall.addEventListener("click", function (e) {
+    if (e.target.classList.contains("delete-note")) {
+      const noteDiv = e.target.parentElement;
+      const noteId = noteDiv.dataset.id;
+      noteDiv.remove();
+      notes = notes.filter(note => note.id != noteId);
+      localStorage.setItem("thoughtNotes", JSON.stringify(notes));
+    }
+  });
+
+  // Load saved notes on page load
+  notes.forEach(renderNote);
 </script>
 <h1> ~ Quotes and Motivations ~ </h1>
 <p class="description">Words to guide you through your thoughts and emotions.</p>
