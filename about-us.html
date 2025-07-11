@@ -1,68 +1,81 @@
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>About Us</title>
-    <link rel="stylesheet" href="styles.css"/>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <header>
-  <a href="index.html" class="logo"> <!-- LOGO -->
-    <img src="LOGO.png">
-  </a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo"> <!-- LOGO -->
+      <img src="LOGO.png">
+    </a>
+    <nav> 
+      <ul>
+        <li><a href="index.html">HOME</a></li>
+        <li><a href="products.html">PRODUCTS</a></li>
+        <li><a href="video-guidelines.html">VIDEO GUIDES</a></li>
+        <li><a href="about-us.html" class="active">ABOUT US</a></li>
+      </ul>
+    </nav>
+  </header>
 
-  <nav> 
-    <ul>
-      <li><a href="index.html">HOME</a></li>
-      <li><a href="products.html">PRODUCTS</a></li>
-      <li><a href="video-guidelines.html">VIDEO GUIDES</a></li>
-      <li><a href="about-us.html" class="active">ABOUT US</a></li>
-    </ul>
-  </nav>
-</header>
+  <main>
+    <h1>About Us</h1>
+    <p class="description">Wall of Thoughts is a student-led mental health awareness project, dedicated to providing an anonymous safe space to confront, share, and understand the thoughts we often hide.</p>
 
-    <main> <!-- Main Contents -->
-      <h1>About Us</h1>
-      <p class="description">Wall of Thoughts is a student-led mental health awareness project, dedicated to providing an anonymous safe space to confront, share, and understand the thoughts we often hide.</p>
-      <h2>Our Mission</h2>
-      <p class="mission">To break the silence around mental struggles, empower self-expression, and remind everyone that facing your thoughts is a step toward healing.</p>
+    <h2>Our Mission</h2>
+    <p class="mission">To break the silence around mental struggles, empower self-expression, and remind everyone that facing your thoughts is a step toward healing.</p>
 
-      <div class="team">
-          <h2>Our Team</h2>
-          <div class="team-grid">
-            <div class="team-member">
-              <h3>Sabban, Jr. Rudy</h3><br>
-              <p>Team Member</p>
-            </div>
-            <div class="team-member">
-              <h3>Alpasan, Gabriel James</h3>
-              <p>Team Member</p>
-            </div>
-            <div class="team-member">
-              <h3>Valerio, Jhulius Nathan</h3>
-              <p>Team Member</p>
-            </div>
-            <div class="team-member">
-              <h3>Victorino, Joselito Gabriel</h3>
-              <p>Team Member</p>
-            </div>
-          </div>
+    <div class="team">
+      <h2>Our Team</h2>
+      <div class="team-grid">
+        <div class="team-member">
+          <h3>Sabban, Jr. Rudy</h3><br>
+          <p>Team Member</p>
         </div>
+        <div class="team-member">
+          <h3>Alpasan, Gabriel James</h3>
+          <p>Team Member</p>
+        </div>
+        <div class="team-member">
+          <h3>Valerio, Jhulius Nathan</h3>
+          <p>Team Member</p>
+        </div>
+        <div class="team-member">
+          <h3>Victorino, Joselito Gabriel</h3>
+          <p>Team Member</p>
+        </div>
+      </div>
+    </div>
 
-        <div class="contact">
-  <h2>Reach Us</h2>
-  <p>Let us help you contact a Psychiatrist</p>
-  <div class="contact-form">
-    <input type="email" id="email" placeholder="Your Email"required />
-    <button type="submit">Submit</button>
-  </div>
-</div>
-    </main>
+    <div class="contact">
+      <h2>Reach Us</h2>
+      <p>Let us help you contact a Psychiatrist</p>
+      <div class="contact-form">
+        <input type="email" id="email" placeholder="Your Email" required />
+        <button type="submit" id="submitBtn">Submit</button>
+      </div>
+    </div>
+  </main>
 
-    <footer> <!-- Footer -->
-      <p>2025 Wall of Thoughts. You are not alone.</p>
-    </footer>
-  </body>
-  </html>
+  <footer>
+    <p>2025 Wall of Thoughts. You are not alone.</p>
+  </footer>
+
+  <!-- JavaScript to show Thank You message -->
+  <script>
+    document.getElementById("submitBtn").addEventListener("click", function () {
+      const emailInput = document.getElementById("email").value.trim();
+      if (emailInput) {
+        alert("Thank you for submitting!");
+        document.getElementById("email").value = ""; // clears the input
+      } else {
+        alert("Please enter a valid email.");
+      }
+    });
+  </script>
+</body>
+</html>
