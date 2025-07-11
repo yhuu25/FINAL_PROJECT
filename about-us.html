@@ -67,15 +67,17 @@
 
   <!-- JavaScript to show Thank You message -->
   <script>
-    document.getElementById("submitBtn").addEventListener("click", function () {
-      const emailInput = document.getElementById("email").value.trim();
-      if (emailInput) {
-        alert("Thank you for submitting!");
-        document.getElementById("email").value = ""; // clears the input
-      } else {
-        alert("Please enter a valid email.");
-      }
-    });
-  </script>
+  document.getElementById("submitBtn").addEventListener("click", function () {
+    const emailInput = document.getElementById("email").value.trim();
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email pattern
+
+    if (emailPattern.test(emailInput)) {
+      alert("Thank you for submitting!");
+      document.getElementById("email").value = ""; // clears the input
+    } else {
+      alert("Please enter a valid email address.");
+    }
+  });
+</script>
 </body>
 </html>
