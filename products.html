@@ -6,6 +6,30 @@
   <title>Products – Calm Corner</title>
   <link rel="stylesheet" href="styles.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    .color-picker {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 15px 0;
+    }
+
+    .color-option {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      outline: none;
+      transition: transform 0.2s, border 0.2s;
+    }
+
+    .color-option.selected {
+      border: 2px solid #4a7856;
+      transform: scale(1.2);
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    }
+  </style>
 </head>
 <body>
   <header> 
@@ -35,20 +59,20 @@
     <p class="categories">Stress Reliever Products</p>
 
     <div class="product-grid">
-      <div class="product" data-description="A soft, squeezable ball that helps relieve stress and anxiety by keeping your hands busy and your mind calm.">
+      <div class="product" data-description="A soft, squeezable ball that helps relieve stress and anxiety by keeping your hands busy and your mind calm." data-colors="Random">
         <img src="squish-balls.jpg">
         <h3>Squishy Ball</h3>
         <p>₱99</p>
         <button class="add-to-cart">Add to Cart</button>
       </div>
-      <div class="product" data-description="A compact cube with buttons, switches, and rollers designed to reduce stress and enhance focus through tactile interaction.">
-        <img src="fidget-cube.jpg">
+      <div class="product" data-description="A compact cube with buttons, switches, and rollers designed to reduce stress and enhance focus through tactile interaction." data-colors="Black,Brown,Green">
+        <img src="fidget-cube-black.jpg">
         <h3>Fidget Cube</h3>
         <p>₱119</p>
         <button class="add-to-cart">Add to Cart</button>
       </div>
-      <div class="product" data-description="A simple yet meaningful bracelet that serves as a gentle reminder to pause, breathe, and stay present throughout your day.">
-        <img src="bracelet.jpg">
+      <div class="product" data-description="A simple yet meaningful bracelet that serves as a gentle reminder to pause, breathe, and stay present throughout your day." data-colors="Blue,Black,Green">
+        <img src="bracelet-blue.jpg">
         <h3>Mindfulness Bracelet</h3>
         <p>₱49</p>
         <button class="add-to-cart">Add to Cart</button>
@@ -57,7 +81,7 @@
 
     <p class="categories">Aromatherapy Items</p>
     <div class="product-grid">
-      <div class="product" data-description="A soothing bath bomb infused with essential oils that fizz and release calming scents, perfect for a relaxing soak.">
+      <div class="product" data-description="A soothing bath bomb infused with essential oils that fizz and release calming scents, perfect for a relaxing soak." data-colors="Random">
         <img src="bath-bomb.jpg">
         <h3>Bath Bomb</h3>
         <p>₱199</p>
@@ -108,171 +132,223 @@
       <h3 id="modalName"></h3>
       <p id="modalPrice"></p>
       <p id="modalDescription"></p>
+      <div id="colorPicker" class="color-picker" style="display: none;"></div>
       <button id="modalAddToCart">Add to Cart</button>
     </div>
   </div>
 
-  <!-- JavaScript -->
   <script>
-    const cartBtn = document.getElementById("cartBtn");
-    const cartPanel = document.getElementById("cartPanel");
-    const closeCart = document.getElementById("closeCart");
-    const cartItemsContainer = document.getElementById("cartItems");
-    const cartCountEl = document.getElementById("cartCount");
-    const productModal = document.getElementById("productModal");
-    const modalImage = document.getElementById("modalImage");
-    const modalName = document.getElementById("modalName");
-    const modalPrice = document.getElementById("modalPrice");
-    const modalDescription = document.getElementById("modalDescription");
-    const modalAddToCart = document.getElementById("modalAddToCart");
-    const closeModal = document.getElementById("closeModal");
+  const cartBtn = document.getElementById("cartBtn");
+  const cartPanel = document.getElementById("cartPanel");
+  const closeCart = document.getElementById("closeCart");
+  const cartItemsContainer = document.getElementById("cartItems");
+  const cartCountEl = document.getElementById("cartCount");
+  const productModal = document.getElementById("productModal");
+  const modalImage = document.getElementById("modalImage");
+  const modalName = document.getElementById("modalName");
+  const modalPrice = document.getElementById("modalPrice");
+  const modalDescription = document.getElementById("modalDescription");
+  const modalAddToCart = document.getElementById("modalAddToCart");
+  const closeModal = document.getElementById("closeModal");
+  const colorPicker = document.getElementById("colorPicker");
 
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    let selectedProduct = {};
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let selectedProduct = {};
 
-    function updateCartCount() {
-      const count = cart.reduce((total, item) => total + item.quantity, 0);
-      cartCountEl.textContent = count;
+  function updateCartCount() {
+    const count = cart.reduce((total, item) => total + item.quantity, 0);
+    cartCountEl.textContent = count;
+  }
+
+  function renderCart() {
+    cartItemsContainer.innerHTML = "";
+    if (cart.length === 0) {
+      cartItemsContainer.innerHTML = "<p>Your cart is empty.</p>";
+      document.getElementById("cartTotal").textContent = "";
+      return;
     }
 
-    function renderCart() {
-      cartItemsContainer.innerHTML = "";
-      if (cart.length === 0) {
-        cartItemsContainer.innerHTML = "<p>Your cart is empty.</p>";
-        document.getElementById("cartTotal").textContent = "";
-        return;
-      }
-
-      cart.forEach((item, index) => {
-        const div = document.createElement("div");
-        div.classList.add("cart-item");
-        div.innerHTML = `
-          <strong>${item.name}</strong><br>
-          ₱${item.price} x 
-          <input type="number" min="1" value="${item.quantity}" data-index="${index}" class="quantity">
-          = ₱${item.price * item.quantity}
-          <button class="remove-item" data-index="${index}">🗑</button>
-        `;
-        cartItemsContainer.appendChild(div);
-      });
-
-      const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-      document.getElementById("cartTotal").textContent = `Total: ₱${total.toFixed(2)}`;
-    }
-
-    function showToast(message) {
-      const toast = document.getElementById("toast");
-      toast.textContent = message;
-      toast.classList.add("show");
-      setTimeout(() => toast.classList.remove("show"), 1500);
-    }
-
-    cartBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      renderCart();
-      cartPanel.style.right = "0";
+    cart.forEach((item, index) => {
+      const div = document.createElement("div");
+      div.classList.add("cart-item");
+      div.innerHTML = `
+        <strong>${item.name}</strong><br>
+        ₱${item.price} x 
+        <input type="number" min="1" value="${item.quantity}" data-index="${index}" class="quantity">
+        = ₱${item.price * item.quantity}
+        <button class="remove-item" data-index="${index}">🗑</button>
+      `;
+      cartItemsContainer.appendChild(div);
     });
 
-    closeCart.addEventListener("click", () => {
-      cartPanel.style.right = "-400px";
-    });
+    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    document.getElementById("cartTotal").textContent = `Total: ₱${total.toFixed(2)}`;
+  }
 
-    document.querySelectorAll(".product button").forEach(button => {
-      button.addEventListener("click", (e) => {
-        e.stopPropagation(); // prevent modal opening when button clicked
-        const card = button.closest(".product");
-        const name = card.querySelector("h3").innerText;
-        const price = parseFloat(card.querySelector("p").innerText.replace("₱", ""));
-        const existing = cart.find(i => i.name === name);
-        if (existing) {
-          existing.quantity++;
-        } else {
-          cart.push({ name, price, quantity: 1 });
-        }
-        localStorage.setItem("cart", JSON.stringify(cart));
-        updateCartCount();
-        renderCart();
-        showToast(`${name} added to cart!`);
-      });
-    });
+  function showToast(message) {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 1500);
+  }
 
-    cartItemsContainer.addEventListener("input", (e) => {
-      if (e.target.classList.contains("quantity")) {
-        const index = e.target.dataset.index;
-        cart[index].quantity = parseInt(e.target.value);
-        localStorage.setItem("cart", JSON.stringify(cart));
-        updateCartCount();
-        renderCart();
-      }
-    });
+  cartBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    renderCart();
+    cartPanel.style.right = "0";
+  });
 
-    cartItemsContainer.addEventListener("click", (e) => {
-      if (e.target.classList.contains("remove-item")) {
-        const index = e.target.dataset.index;
-        cart.splice(index, 1);
-        localStorage.setItem("cart", JSON.stringify(cart));
-        updateCartCount();
-        renderCart();
-      }
-    });
+  closeCart.addEventListener("click", () => {
+    cartPanel.style.right = "-400px";
+  });
 
-    document.getElementById("checkoutForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const name = document.getElementById("customerName").value.trim();
-      const contact = document.getElementById("contactNumber").value.trim();
-      const address = document.getElementById("address").value.trim();
-
-      if (!name || !contact || !address) {
-        alert("Please fill out all fields.");
-        return;
-      }
-
-      alert(`Thank you, ${name}! Your order has been placed.`);
-      cart = [];
-      localStorage.setItem("cart", JSON.stringify(cart));
-      updateCartCount();
-      renderCart();
-      this.reset();
-    });
-
-    // Modal logic
-    document.querySelectorAll(".product").forEach(card => {
-      card.addEventListener("click", () => {
-        const name = card.querySelector("h3").innerText;
-        const price = parseFloat(card.querySelector("p").innerText.replace("₱", ""));
-        const image = card.querySelector("img").getAttribute("src");
-        const description = card.dataset.description;
-
-        selectedProduct = { name, price };
-
-        modalImage.src = image;
-        modalName.textContent = name;
-        modalPrice.textContent = `₱${price}`;
-        modalDescription.textContent = description;
-        productModal.style.display = "flex";
-      });
-    });
-
-    closeModal.addEventListener("click", () => {
-      productModal.style.display = "none";
-    });
-
-    modalAddToCart.addEventListener("click", () => {
-      const existing = cart.find(i => i.name === selectedProduct.name);
+  document.querySelectorAll(".product button").forEach(button => {
+    button.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const card = button.closest(".product");
+      const name = card.querySelector("h3").innerText;
+      const price = parseFloat(card.querySelector("p").innerText.replace("₱", ""));
+      const existing = cart.find(i => i.name === name);
       if (existing) {
         existing.quantity++;
       } else {
-        cart.push({ ...selectedProduct, quantity: 1 });
+        cart.push({ name, price, quantity: 1 });
       }
-
       localStorage.setItem("cart", JSON.stringify(cart));
       updateCartCount();
       renderCart();
-      showToast(`${selectedProduct.name} added to cart!`);
-      productModal.style.display = "none";
+      showToast(`${name} added to cart!`);
     });
+  });
 
+  cartItemsContainer.addEventListener("input", (e) => {
+    if (e.target.classList.contains("quantity")) {
+      const index = e.target.dataset.index;
+      cart[index].quantity = parseInt(e.target.value);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartCount();
+      renderCart();
+    }
+  });
+
+  cartItemsContainer.addEventListener("click", (e) => {
+    if (e.target.classList.contains("remove-item")) {
+      const index = e.target.dataset.index;
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartCount();
+      renderCart();
+    }
+  });
+
+  document.getElementById("checkoutForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const name = document.getElementById("customerName").value.trim();
+    const contact = document.getElementById("contactNumber").value.trim();
+    const address = document.getElementById("address").value.trim();
+
+    if (!name || !contact || !address) {
+      alert("Please fill out all fields.");
+      return;
+    }
+
+    alert(`Thank you, ${name}! Your order has been placed.`);
+    cart = [];
+    localStorage.setItem("cart", JSON.stringify(cart));
     updateCartCount();
-  </script>
+    renderCart();
+    this.reset();
+  });
+
+  document.querySelectorAll(".product").forEach(card => {
+    card.addEventListener("click", () => {
+      const name = card.querySelector("h3").innerText;
+      const price = parseFloat(card.querySelector("p").innerText.replace("₱", ""));
+      const image = card.querySelector("img").getAttribute("src");
+      const description = card.dataset.description;
+      const colors = card.dataset.colors ? card.dataset.colors.split(",") : [];
+
+      selectedProduct = { name, price, colors, baseImage: image };
+
+      modalImage.src = image;
+      modalName.textContent = name;
+      modalPrice.textContent = `₱${price}`;
+      modalDescription.textContent = description;
+
+      if (colors.length > 0) {
+        colorPicker.style.display = "flex";
+        renderColorOptions(colors);
+      } else {
+        colorPicker.style.display = "none";
+      }
+
+      productModal.style.display = "flex";
+    });
+  });
+
+  closeModal.addEventListener("click", () => {
+    productModal.style.display = "none";
+  });
+
+  modalAddToCart.addEventListener("click", () => {
+    const selectedBtn = document.querySelector(".color-option.selected");
+    const color = selectedBtn ? selectedBtn.dataset.color : "Default";
+    const nameWithColor = selectedProduct.colors.length > 0 ? `${selectedProduct.name} (${color})` : selectedProduct.name;
+
+    const existing = cart.find(i => i.name === nameWithColor);
+    if (existing) {
+      existing.quantity++;
+    } else {
+      cart.push({ name: nameWithColor, price: selectedProduct.price, quantity: 1 });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartCount();
+    renderCart();
+    showToast(`${nameWithColor} added to cart!`);
+    productModal.style.display = "none";
+  });
+
+  function renderColorOptions(colors) {
+    colorPicker.innerHTML = "";
+    colors.forEach((color, index) => {
+      const btn = document.createElement("button");
+      btn.classList.add("color-option");
+      btn.dataset.color = color.trim();
+
+      if (color.trim().toLowerCase() === "random") {
+        btn.textContent = "Random Color";
+        btn.style.background = "none";
+        btn.style.border = "1px solid #999";
+        btn.style.padding = "8px";
+        btn.style.fontSize = "14px";
+      } else {
+        btn.style.backgroundColor = color;
+      }
+
+      if (index === 0) btn.classList.add("selected");
+
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".color-option").forEach(b => b.classList.remove("selected"));
+        btn.classList.add("selected");
+
+        const selectedColor = color.trim().toLowerCase();
+        const productName = selectedProduct.name.toLowerCase();
+
+        if (productName === "fidget cube") {
+  const newImage = `fidget-cube-${selectedColor}.jpg`;
+  modalImage.src = newImage;
+} else if (productName === "mindfulness bracelet") {
+  const newImage = `bracelet-${selectedColor}.jpg`;
+  modalImage.src = newImage;
+}
+      });
+
+      colorPicker.appendChild(btn);
+    });
+  }
+
+  updateCartCount();
+</script>
 </body>
 </html>

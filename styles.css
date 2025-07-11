@@ -615,4 +615,68 @@
     background-color: #355c3e;
   }
 
+  .color-picker {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
 
+/* Individual Color Option Circle */
+.color-option {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  outline: none;
+  transition: transform 0.2s, border 0.2s;
+}
+
+/* Selected color state */
+.color-option.selected {
+  border: 2px solid #4a7856;
+  transform: scale(1.2);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+#colorPicker {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.color-option {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s, border 0.2s;
+}
+
+.color-option.selected {
+  border: 2px solid #4a7856;
+  transform: scale(1.2);
+}
+
+/* Style specifically for text-based 'Random Color' button */
+.color-option[data-color="Random"] {
+  width: auto;
+  height: auto;
+  border-radius: 6px;
+  padding: 6px 12px;
+  background-color: transparent;
+  border: 1px solid #999;
+  font-size: 14px;
+  color: #333;
+  font-family: sans-serif;
+  transition: all 0.2s;
+}
+
+.color-option[data-color="Random"]:hover {
+  background-color: #f0f0f0;
+  color: #000;
+}
